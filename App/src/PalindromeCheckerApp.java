@@ -9,13 +9,19 @@ public class PalindromeCheckerApp {
         System.out.println("Enter a word:");
         String word = sc.nextLine();
 
-        String reverse = "";
+        char[] arr = word.toCharArray();
 
-        for (int i = word.length() - 1; i >= 0; i--) {
-            reverse = reverse + word.charAt(i);
+        boolean isPalindrome = true;
+
+        for (int i = 0; i < arr.length / 2; i++) {
+
+            if (arr[i] != arr[arr.length - 1 - i]) {
+                isPalindrome = false;
+                break;
+            }
         }
 
-        if (word.equals(reverse)) {
+        if (isPalindrome) {
             System.out.println("Palindrome");
         } else {
             System.out.println("Not Palindrome");

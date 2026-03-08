@@ -1,15 +1,10 @@
 import java.util.Scanner;
+import java.util.Stack;
 
-/* Strategy Interface */
-interface PalindromeStrategy {
-    boolean isPalindrome(String word);
-}
+public class PalindromeCheckerApp {
 
-
-/* Reverse Strategy */
-class ReverseStrategy implements PalindromeStrategy {
-
-    public boolean isPalindrome(String word) {
+    // Reverse method
+    public static boolean reverseCheck(String word) {
 
         String reverse = "";
 
@@ -19,13 +14,10 @@ class ReverseStrategy implements PalindromeStrategy {
 
         return word.equals(reverse);
     }
-}
 
 
-/* Array Strategy */
-class ArrayStrategy implements PalindromeStrategy {
-
-    public boolean isPalindrome(String word) {
+    // Array method
+    public static boolean arrayCheck(String word) {
 
         char[] arr = word.toCharArray();
 
@@ -44,15 +36,12 @@ class ArrayStrategy implements PalindromeStrategy {
 
         return true;
     }
-}
 
 
-/* Stack Strategy */
-class StackStrategy implements PalindromeStrategy {
+    // Stack method
+    public static boolean stackCheck(String word) {
 
-    public boolean isPalindrome(String word) {
-
-        java.util.Stack<Character> stack = new java.util.Stack<>();
+        Stack<Character> stack = new Stack<>();
 
         for (int i = 0; i < word.length(); i++) {
             stack.push(word.charAt(i));
@@ -66,11 +55,22 @@ class StackStrategy implements PalindromeStrategy {
 
         return word.equals(reverse);
     }
-}
 
 
-/* Main Class */
-public class PalindromeCheckerApp {
+    // Recursive method
+    public static boolean recursiveCheck(String word, int start, int end) {
+
+        if (start >= end) {
+            return true;
+        }
+
+        if (word.charAt(start) != word.charAt(end)) {
+            return false;
+        }
+
+        return recursiveCheck(word, start + 1, end - 1);
+    }
+
 
     public static void main(String[] args) {
 
@@ -79,20 +79,38 @@ public class PalindromeCheckerApp {
         System.out.println("Enter text:");
         String word = sc.nextLine();
 
-        PalindromeStrategy strategy;
 
-        // choose strategy here
-        strategy = new ReverseStrategy();
-        // strategy = new ArrayStrategy();
-        // strategy = new StackStrategy();
+        long startTime;
+        long endTime;
 
-        boolean result = strategy.isPalindrome(word);
 
-        if (result) {
-            System.out.println("Palindrome");
-        } else {
-            System.out.println("Not Palindrome");
-        }
+        // Reverse
+        startTime = System.nanoTime();
+        boolean r1 = reverseCheck(word);
+        endTime = System.nanoTime();
+        System.out.println("Reverse: " + r1 + " Time: " + (endTime - startTime));
+
+
+        // Array
+        startTime = System.nanoTime();
+        boolean r2 = arrayCheck(word);
+        endTime = System.nanoTime();
+        System.out.println("Array: " + r2 + " Time: " + (endTime - startTime));
+
+
+        // Stack
+        startTime = System.nanoTime();
+        boolean r3 = stackCheck(word);
+        endTime = System.nanoTime();
+        System.out.println("Stack: " + r3 + " Time: " + (endTime - startTime));
+
+
+        // Recursion
+        startTime = System.nanoTime();
+        boolean r4 = recursiveCheck(word, 0, word.length() - 1);
+        endTime = System.nanoTime();
+        System.out.println("Recursion: " + r4 + " Time: " + (endTime - startTime));
+
 
         sc.close();
     }

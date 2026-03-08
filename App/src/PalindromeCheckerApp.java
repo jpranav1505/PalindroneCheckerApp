@@ -1,32 +1,22 @@
-import java.util.Scanner;
+public class PalindromeService {
 
-public class PalindromeCheckerApp {
+    public boolean isPalindrome(String word) {
 
-    public static void main(String[] args) {
+        word = word.toLowerCase().replaceAll(" ", "");
 
-        Scanner sc = new Scanner(System.in);
+        int start = 0;
+        int end = word.length() - 1;
 
-        System.out.println("Enter a sentence:");
-        String word = sc.nextLine();
+        while (start < end) {
 
-        // ignore case
-        word = word.toLowerCase();
+            if (word.charAt(start) != word.charAt(end)) {
+                return false;
+            }
 
-        // remove spaces
-        word = word.replaceAll(" ", "");
-
-        String reverse = "";
-
-        for (int i = word.length() - 1; i >= 0; i--) {
-            reverse = reverse + word.charAt(i);
+            start++;
+            end--;
         }
 
-        if (word.equals(reverse)) {
-            System.out.println("Palindrome");
-        } else {
-            System.out.println("Not Palindrome");
-        }
-
-        sc.close();
+        return true;
     }
 }

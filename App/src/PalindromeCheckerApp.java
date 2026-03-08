@@ -1,39 +1,30 @@
 import java.util.Scanner;
-import java.util.LinkedList;
 
 public class PalindromeCheckerApp {
+
+    public static boolean isPalindrome(String str, int start, int end) {
+
+        if (start >= end) {
+            return true;
+        }
+
+        if (str.charAt(start) != str.charAt(end)) {
+            return false;
+        }
+
+        return isPalindrome(str, start + 1, end - 1);
+    }
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        LinkedList<Character> list = new LinkedList<>();
-
         System.out.println("Enter a word:");
         String word = sc.nextLine();
 
-        // add characters to linked list
-        for (int i = 0; i < word.length(); i++) {
-            list.add(word.charAt(i));
-        }
+        boolean result = isPalindrome(word, 0, word.length() - 1);
 
-        boolean isPalindrome = true;
-
-        int start = 0;
-        int end = list.size() - 1;
-
-        while (start < end) {
-
-            if (list.get(start) != list.get(end)) {
-                isPalindrome = false;
-                break;
-            }
-
-            start++;
-            end--;
-        }
-
-        if (isPalindrome) {
+        if (result) {
             System.out.println("Palindrome");
         } else {
             System.out.println("Not Palindrome");

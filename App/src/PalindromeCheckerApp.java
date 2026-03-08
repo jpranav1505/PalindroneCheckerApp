@@ -1,6 +1,5 @@
 import java.util.Scanner;
-import java.util.Deque;
-import java.util.ArrayDeque;
+import java.util.LinkedList;
 
 public class PalindromeCheckerApp {
 
@@ -8,27 +7,30 @@ public class PalindromeCheckerApp {
 
         Scanner sc = new Scanner(System.in);
 
-        Deque<Character> deque = new ArrayDeque<>();
+        LinkedList<Character> list = new LinkedList<>();
 
         System.out.println("Enter a word:");
         String word = sc.nextLine();
 
-        // add characters to deque
+        // add characters to linked list
         for (int i = 0; i < word.length(); i++) {
-            deque.addLast(word.charAt(i));
+            list.add(word.charAt(i));
         }
 
         boolean isPalindrome = true;
 
-        while (deque.size() > 1) {
+        int start = 0;
+        int end = list.size() - 1;
 
-            char first = deque.removeFirst();
-            char last = deque.removeLast();
+        while (start < end) {
 
-            if (first != last) {
+            if (list.get(start) != list.get(end)) {
                 isPalindrome = false;
                 break;
             }
+
+            start++;
+            end--;
         }
 
         if (isPalindrome) {
